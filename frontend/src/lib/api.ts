@@ -108,19 +108,6 @@ export const vpnNodesApi = {
     api.post<ChainInfo>(`/vpn/nodes/${id}/chain`, { exit_node_id: exitNodeId }),
   removeChain: (id: number) =>
     api.delete(`/vpn/nodes/${id}/chain`),
-  applyChain: (nodeIds: number[]) =>
-    api.post('/vpn/nodes/chain/apply', { node_ids: nodeIds }),
-  getActiveChain: () =>
-    api.get<{ chain: Array<{ id: number; region_city: string; region_country: string; status: string; ip_address: string | null }> }>('/vpn/nodes/chain/active'),
-  testNode: (id: number) =>
-    api.get<{ xray_active: boolean; xray_status: string; public_ip: string; node_ip: string }>(`/vpn/nodes/${id}/test`),
-  subscriptionUrl: () => {
-    const token = localStorage.getItem('xylofence_token') ?? ''
-    const base = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL
-      : `${window.location.origin}/api`
-    return `${base}/vpn/nodes/subscription?token=${encodeURIComponent(token)}`
-  },
 }
 
 // ── Incidents ─────────────────────────────────────────────────────────────────
@@ -128,14 +115,4 @@ export const incidentsApi = {
   list: () => api.get('/incidents'),
   get: (id: number) => api.get(`/incidents/${id}`),
   update: (id: number, data: unknown) => api.patch(`/incidents/${id}`, data),
-}
-
-// ── Invitations ───────────────────────────────────────────────────────────────
-export const invitationsApi = {
-  create: (data: { email?: string; role: string }) => api.post('/auth/invite', data),
-  list: () => api.get('/auth/invitations'),
-  delete: (id: number) => api.delete(`/auth/invitations/${id}`),
-  validate: (token: string) => api.get(`/auth/invite/${token}`),
-  register: (data: { token: string; full_name: string; password: string }) =>
-    api.post('/auth/register', data),
 }

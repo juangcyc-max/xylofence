@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   serversApi, peersApi, usersApi, auditApi,
-  assetsApi, scansApi, incidentsApi, hostScansApi, invitationsApi,
+  assetsApi, scansApi, incidentsApi, hostScansApi,
 } from '@/lib/api'
 
 // ── VPN Servers ───────────────────────────────────────────────────────────────
@@ -168,36 +168,3 @@ export const useDeleteHostScan = () => {
 
 export const useSystemInfo = () =>
   useQuery({ queryKey: ['system-info'], queryFn: () => hostScansApi.systemInfo().then(r => r.data), staleTime: 60_000 })
-
-// ── Invitations ───────────────────────────────────────────────────────────────
-export const useInvitations = () =>
-  useQuery({ queryKey: ['invitations'], queryFn: () => invitationsApi.list().then(r => r.data) })
-
-export const useCreateInvitation = () => {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: (data: { email?: string; role: string }) => invitationsApi.create(data).then(r => r.data),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['invitations'] }),
-  })
-}
-
-export const useDeleteInvitation = () => {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: (id: number) => invitationsApi.delete(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['invitations'] }),
-  })
-}
-
-export const useValidateInvitation = (token: string) =>
-  useQuery({
-    queryKey: ['invitation', token],
-    queryFn: () => invitationsApi.validate(token).then(r => r.data),
-    retry: false,
-  })
-
-export const useRegister = () =>
-  useMutation({
-    mutationFn: (data: { token: string; full_name: string; password: string }) =>
-      invitationsApi.register(data).then(r => r.data),
-  })

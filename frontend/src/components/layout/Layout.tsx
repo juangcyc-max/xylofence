@@ -7,9 +7,9 @@ export function Layout() {
   if (!token) return <Navigate to="/login" replace />
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: '#F4F6FB' }}>
+    <div className="flex h-screen overflow-hidden bg-bg">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto" style={{ background: '#F4F6FB' }}>
+      <main className="flex-1 overflow-y-auto">
         <div className="p-6 max-w-7xl mx-auto">
           <Outlet />
         </div>

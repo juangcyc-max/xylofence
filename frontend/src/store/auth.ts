@@ -15,10 +15,6 @@ interface AuthState {
   setAuth: (token: string, user: User) => void
   logout: () => void
   isAdmin: () => boolean
-  isManager: () => boolean
-  isViewer: () => boolean
-  isClient: () => boolean
-  canWrite: () => boolean
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -34,11 +30,7 @@ export const useAuthStore = create<AuthState>()(
         localStorage.removeItem('xylofence_token')
         set({ token: null, user: null })
       },
-      isAdmin:   () => get().user?.role === 'admin',
-      isManager: () => ['admin', 'manager'].includes(get().user?.role ?? ''),
-      isViewer:  () => get().user?.role === 'viewer',
-      isClient:  () => get().user?.role === 'client',
-      canWrite:  () => ['admin', 'manager'].includes(get().user?.role ?? ''),
+      isAdmin: () => get().user?.role === 'admin',
     }),
     { name: 'xylofence-auth', partialize: (s) => ({ token: s.token, user: s.user }) }
   )

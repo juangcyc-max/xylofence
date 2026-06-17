@@ -1,18 +1,9 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { accent?: 'primary' | 'accent' | 'none' }>(
-  ({ className, accent = 'none', ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'bg-white rounded-xl border border-slate-200 shadow-card',
-        accent === 'primary' && 'border-t-2 border-t-primary',
-        accent === 'accent'  && 'border-t-2 border-t-accent',
-        className
-      )}
-      {...props}
-    />
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('bg-surface rounded-lg border border-surface-2', className)} {...props} />
   )
 )
 Card.displayName = 'Card'
@@ -26,7 +17,7 @@ CardHeader.displayName = 'CardHeader'
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('font-semibold text-slate-700 leading-none tracking-tight text-sm', className)} {...props} />
+    <h3 ref={ref} className={cn('font-semibold text-slate-100 leading-none tracking-tight', className)} {...props} />
   )
 )
 CardTitle.displayName = 'CardTitle'

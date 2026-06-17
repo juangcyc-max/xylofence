@@ -6,12 +6,12 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantMap: Record<string, string> = {
-  critical: 'bg-red-50 text-red-700 border border-red-200',
-  high:     'bg-orange-50 text-orange-700 border border-orange-200',
-  medium:   'bg-yellow-50 text-yellow-700 border border-yellow-200',
-  low:      'bg-blue-50 text-blue-700 border border-blue-200',
-  info:     'bg-slate-100 text-slate-600 border border-slate-200',
-  default:  'bg-slate-100 text-slate-600 border border-slate-200',
+  critical: 'bg-red-900/40 text-red-400 border border-red-800/50',
+  high:     'bg-orange-900/40 text-orange-400 border border-orange-800/50',
+  medium:   'bg-yellow-900/40 text-yellow-400 border border-yellow-800/50',
+  low:      'bg-blue-900/40 text-blue-400 border border-blue-800/50',
+  info:     'bg-slate-800 text-slate-400 border border-slate-700',
+  default:  'bg-surface-2 text-slate-300 border border-surface-3',
 }
 
 export function Badge({ variant = 'default', className, children, ...props }: BadgeProps) {
