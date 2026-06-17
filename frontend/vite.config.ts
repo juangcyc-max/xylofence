@@ -13,6 +13,11 @@ export default defineConfig({
     target: 'es2020',
     cssCodeSplit: true,
     sourcemap: false,
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies: (_filename, deps) =>
+        deps.filter((d) => !d.includes('vendor-charts')),
+    },
     rollupOptions: {
       output: {
         manualChunks: {
